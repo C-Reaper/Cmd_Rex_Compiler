@@ -57,26 +57,9 @@ end:
 Token Bool_Bool_Handler_Ass(RexLang* ll,Token* op,Vector* args){
     Token* a = (Token*)Vector_Get(args,0);
     Token* b = (Token*)Vector_Get(args,1);
-
-    //printf("[Bool]: ASS: %s = %s\n",a->str,b->str);
-
-    if(b->tt==TOKEN_NUMBER){
-        RexLang_IntoSet(ll,a,b->str);
-    }else if(b->tt==TOKEN_REXLANG_BOOLEAN){
-        CStr value = Number_Get(Boolean_Parse(b->str));
-        RexLang_IntoSet(ll,a,value);
-        CStr_Free(&value);
-    }else if(b->tt==TOKEN_STRING){
-        int realsize_a = RexLang_TypeRealSize(ll,a);
-        int realsize_b = RexLang_TypeRealSize(ll,b);
-        RexLang_IntoReg(ll,b,RexLang_SelectRT(ll,realsize_b)[RexLang_REG_A]);
-        RexLang_IntoSet(ll,a,RexLang_SelectRT(ll,realsize_a)[RexLang_REG_A]);
-    }else{
-        printf("[Bool]: Ass: Error -> %s has no bool/i64 type!\n",b->str);
-        return Token_Null();
-    }
-    return Token_Cpy(a);
+    return RexLang_ExecuteAss(ll,a,b,op,"mov","ASS");
 }
+
 Token Bool_Bool_Handler_Lnd(RexLang* ll,Token* op,Vector* args){
     Token* a = (Token*)Vector_Get(args,0);
     Token* b = (Token*)Vector_Get(args,1);
@@ -147,7 +130,7 @@ Token Bool_Null_Handler_Cast(RexLang* ll,Token* op,Vector* args){
     String ret = String_New();
 
     if(a->tt==TOKEN_NUMBER){
-        String_AppendNumber(&ret,Number_Parse(a->str));
+        String_AppendNumber(&ret,a->v_i64);
     }else{
         Variable* v = Scope_FindVariable(&ll->ev.sc,a->str);
         if(v){
@@ -176,7 +159,7 @@ Token Bool_Handler_Cast(RexLang* ll,Token* op,Vector* args){
 Token Bool_Handler_Size(RexLang* ll,Token* op,Vector* args){
     Token* a = (Token*)Vector_Get(args,0);
     //printf("[Bool]: SIZE: %s\n",a->str);
-    return Token_Move(TOKEN_NUMBER,Number_Get(BOOL_SIZE));
+    return Token_New_I64(TOKEN_NUMBER,BOOL_SIZE);
 }
 
 void Ex_Packer(ExternFunctionMap* Extern_Functions,Vector* funcs,Scope* s){//Vector<CStr>

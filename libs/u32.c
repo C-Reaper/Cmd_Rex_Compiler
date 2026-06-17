@@ -170,7 +170,7 @@ Token U32_Null_Handler_Cast(RexLang* ll,Token* op,Vector* args){
     String ret = String_New();
 
     if(a->tt==TOKEN_NUMBER){
-        String_AppendNumber(&ret,Number_Parse(a->str));
+        String_AppendNumber(&ret,a->v_i64);
     }else{
         Variable* v = Scope_FindVariable(&ll->ev.sc,a->str);
         if(v){
@@ -199,7 +199,7 @@ Token U32_Handler_Cast(RexLang* ll,Token* op,Vector* args){
 Token U32_Handler_Size(RexLang* ll,Token* op,Vector* args){
     Token* a = (Token*)Vector_Get(args,0);
     //printf("[U32]: SIZE: %s\n",a->str);
-    return Token_Move(TOKEN_NUMBER,Number_Get(U32_SIZE));
+    return Token_New_I64(TOKEN_NUMBER,(U32_SIZE));
 }
 
 void Ex_Packer(ExternFunctionMap* Extern_Functions,Vector* funcs,Scope* s){//Vector<CStr>

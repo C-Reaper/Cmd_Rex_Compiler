@@ -38,9 +38,9 @@ GLOBAL_STR27: db "| Header: ",0
 GLOBAL_STR28: db "| Element: ",0
 GLOBAL_STR29: db 10,0
 GLOBAL_STR30: db "----------------------------------------------",10,0
-GLOBAL_STR31: db "0123456789",0
-GLOBAL_STR32: db "-0123456789",0
-GLOBAL_STR33: db "-.0123456789",0
+GLOBAL_STR31: db "9223372036854775801",0
+GLOBAL_STR32: db "-9223372036854775801",0
+GLOBAL_STR33: db "-.9223372036854775801",0
 GLOBAL_STR34: db "x0123456789ABCDEFabcdef",0
 GLOBAL_STR35: db "o01234567",0
 GLOBAL_STR36: db "b01",0
@@ -78,7 +78,7 @@ f.sys.open:
     mov rax,2
     mov rdi,QWORD[rsp + 16]
     mov rsi,QWORD[rsp + 8]
-    mov rdx,0o644
+    mov rdx,420
     syscall
     sub rsp,8
     mov QWORD[rsp + 0],rax
@@ -137,7 +137,7 @@ f.sys.mmap:
     mov rdi,0
     mov rsi,QWORD[rsp + 8]
     mov rdx,3
-    mov r10,0x22
+    mov r10,34
     mov r8,0
     mov r9,0
     syscall
@@ -656,7 +656,8 @@ f.cstr.cmp:
     cmp al,0
     je l.1_IF2_3
     l.0_IF2_3:
-    mov BYTE[rsp + 40],0
+    mov al,80
+    mov BYTE[rsp + 40],al
     add rsp,8
     add rsp,8
     ret
@@ -720,7 +721,8 @@ f.cstr.cmp:
     cmp al,0
     je l.1_IF4_0
     l.0_IF4_0:
-    mov BYTE[rsp + 48],0
+    mov al,16
+    mov BYTE[rsp + 48],al
     add rsp,8
     add rsp,8
     add rsp,8
@@ -731,7 +733,8 @@ f.cstr.cmp:
     jmp l.0_FOR3_1
     l.1_FOR3_1:
     add rsp,8
-    mov BYTE[rsp + 40],1
+    mov al,4294967168
+    mov BYTE[rsp + 40],al
     add rsp,8
     add rsp,8
     ret
@@ -2705,7 +2708,7 @@ f.math.float.setmode:
 
 f.math.float.setstd:
     sub rsp,2
-    mov WORD[rsp + 0],0x037F
+    mov WORD[rsp + 0],895
     fldcw WORD[rsp + 0]
     add rsp,2
     ret
@@ -2839,7 +2842,7 @@ f.math.float.sign:
     cmp al,0
     je l.1_ELIF2_24_2
     l.0_ELIF2_24_2:
-    mov rax,2429
+    mov rax,-4616189618054758400
     mov QWORD[rsp + 16],rax
     ret
     l.1_LOG2_24:
@@ -2998,7 +3001,7 @@ f.parse.boolean.get:
     sub rsp,1
     sub rsp,1
     mov al,BYTE[rsp + 10]
-    cmp al,0
+    cmp al,4294967168
     je lcmp.128_TRUE
     mov BYTE[rsp + 0],0
     jmp lcmp.129_END
@@ -3029,7 +3032,7 @@ f.parse.boolean.get:
     sub rsp,1
     sub rsp,1
     mov al,BYTE[rsp + 10]
-    cmp al,1
+    cmp al,96
     je lcmp.130_TRUE
     mov BYTE[rsp + 0],0
     jmp lcmp.131_END
@@ -3106,7 +3109,8 @@ f.parse.boolean.by:
     cmp al,0
     je l.1_IF2_26
     l.0_IF2_26:
-    mov BYTE[rsp + 16],0
+    mov al,96
+    mov BYTE[rsp + 16],al
     ret
     l.1_LOG2_26:
     l.1_IF2_26:
@@ -3143,11 +3147,13 @@ f.parse.boolean.by:
     cmp al,0
     je l.1_IF2_27
     l.0_IF2_27:
-    mov BYTE[rsp + 16],1
+    mov al,4294967264
+    mov BYTE[rsp + 16],al
     ret
     l.1_LOG2_27:
     l.1_IF2_27:
-    mov BYTE[rsp + 16],0
+    mov al,48
+    mov BYTE[rsp + 16],al
     ret
     ret
 
@@ -3170,7 +3176,8 @@ f.parse.boolean.by_s:
     cmp al,0
     je l.1_IF2_28
     l.0_IF2_28:
-    mov BYTE[rsp + 24],0
+    mov al,64
+    mov BYTE[rsp + 24],al
     ret
     l.1_LOG2_28:
     l.1_IF2_28:
@@ -3210,10 +3217,12 @@ f.parse.boolean.by_s:
     sub rsp,8
     mov rax,QWORD[rsp + 16]
     mov QWORD[rsp + 0],rax
+    mov al,4294967232
     mov r10,QWORD[rsp + 0]
-    mov BYTE[r10],0
+    mov BYTE[r10],al
     add rsp,8
-    mov BYTE[rsp + 24],1
+    mov al,4294967264
+    mov BYTE[rsp + 24],al
     ret
     l.1_LOG2_29:
     l.1_IF2_29:
@@ -3253,14 +3262,17 @@ f.parse.boolean.by_s:
     sub rsp,8
     mov rax,QWORD[rsp + 16]
     mov QWORD[rsp + 0],rax
+    mov al,4294967184
     mov r10,QWORD[rsp + 0]
-    mov BYTE[r10],1
+    mov BYTE[r10],al
     add rsp,8
-    mov BYTE[rsp + 24],1
+    mov al,4294967184
+    mov BYTE[rsp + 24],al
     ret
     l.1_LOG2_30:
     l.1_IF2_30:
-    mov BYTE[rsp + 24],0
+    mov al,4294967264
+    mov BYTE[rsp + 24],al
     ret
     ret
 
@@ -3530,7 +3542,8 @@ f.parse.uint.by_s:
     cmp al,0
     je l.1_IF2_33
     l.0_IF2_33:
-    mov BYTE[rsp + 24],0
+    mov al,64
+    mov BYTE[rsp + 24],al
     ret
     l.1_LOG2_33:
     l.1_IF2_33:
@@ -3652,7 +3665,8 @@ f.parse.uint.by_s:
     jmp l.1_LOG3_14
     l.1_IF3_14:
     l.0_ELSE3_14:
-    mov BYTE[rsp + 65],0
+    mov al,4294967280
+    mov BYTE[rsp + 65],al
     add rsp,1
     add rsp,8
     add rsp,8
@@ -3671,7 +3685,8 @@ f.parse.uint.by_s:
     mov r10,QWORD[rsp + 0]
     mov QWORD[r10],rax
     add rsp,8
-    mov BYTE[rsp + 64],1
+    mov al,4294967232
+    mov BYTE[rsp + 64],al
     add rsp,8
     add rsp,8
     add rsp,8
@@ -4064,7 +4079,8 @@ f.parse.int.by_s:
     cmp al,0
     je l.1_IF2_39
     l.0_IF2_39:
-    mov BYTE[rsp + 24],0
+    mov al,0
+    mov BYTE[rsp + 24],al
     ret
     l.1_LOG2_39:
     l.1_IF2_39:
@@ -4220,7 +4236,8 @@ f.parse.int.by_s:
     jmp l.1_LOG3_17
     l.1_IF3_17:
     l.0_ELSE3_17:
-    mov BYTE[rsp + 73],0
+    mov al,48
+    mov BYTE[rsp + 73],al
     add rsp,1
     add rsp,8
     add rsp,8
@@ -4267,7 +4284,8 @@ f.parse.int.by_s:
     mov r10,QWORD[rsp + 0]
     mov QWORD[r10],rax
     add rsp,8
-    mov BYTE[rsp + 72],1
+    mov al,80
+    mov BYTE[rsp + 72],al
     add rsp,8
     add rsp,8
     add rsp,8
@@ -4556,7 +4574,7 @@ f.parse.float.by:
     mov rax,QWORD[rsp + 8]
     mov QWORD[rsp + 0],rax
     mov rax,0
-    mov eax,48
+    mov eax,0
     mov r10,QWORD[rsp + 0]
     mov BYTE[r10],al
     add rsp,8
@@ -4611,7 +4629,7 @@ f.parse.float.by:
     mov rax,QWORD[rsp + 8]
     mov QWORD[rsp + 0],rax
     mov rax,0
-    mov eax,48
+    mov eax,0
     mov r10,QWORD[rsp + 0]
     mov BYTE[r10],al
     add rsp,8
@@ -4784,7 +4802,8 @@ f.parse.float.by_s:
     cmp al,0
     je l.1_IF2_47
     l.0_IF2_47:
-    mov BYTE[rsp + 24],0
+    mov al,48
+    mov BYTE[rsp + 24],al
     ret
     l.1_LOG2_47:
     l.1_IF2_47:
@@ -4839,7 +4858,7 @@ f.parse.float.by_s:
     mov rax,QWORD[rsp + 8]
     mov QWORD[rsp + 0],rax
     mov rax,0
-    mov eax,48
+    mov eax,0
     mov r10,QWORD[rsp + 0]
     mov BYTE[r10],al
     add rsp,8
@@ -4864,7 +4883,7 @@ f.parse.float.by_s:
     add rsp,8
     sub rsp,1
     mov al,BYTE[rsp + 1]
-    cmp al,1
+    cmp al,4294967264
     jne lcmp.198_TRUE
     mov BYTE[rsp + 0],0
     jmp lcmp.199_END
@@ -4880,7 +4899,8 @@ f.parse.float.by_s:
     cmp al,0
     je l.1_IF2_49
     l.0_IF2_49:
-    mov BYTE[rsp + 48],0
+    mov al,96
+    mov BYTE[rsp + 48],al
     add rsp,8
     add rsp,8
     add rsp,8
@@ -4928,7 +4948,7 @@ f.parse.float.by_s:
     mov rax,QWORD[rsp + 8]
     mov QWORD[rsp + 0],rax
     mov rax,0
-    mov eax,48
+    mov eax,0
     mov r10,QWORD[rsp + 0]
     mov BYTE[r10],al
     add rsp,8
@@ -4980,7 +5000,7 @@ f.parse.float.by_s:
     add rsp,8
     sub rsp,1
     mov al,BYTE[rsp + 1]
-    cmp al,1
+    cmp al,32
     jne lcmp.202_TRUE
     mov BYTE[rsp + 0],0
     jmp lcmp.203_END
@@ -4996,7 +5016,8 @@ f.parse.float.by_s:
     cmp al,0
     je l.1_IF3_19
     l.0_IF3_19:
-    mov BYTE[rsp + 64],0
+    mov al,32
+    mov BYTE[rsp + 64],al
     add rsp,8
     add rsp,8
     add rsp,8
@@ -5111,7 +5132,8 @@ f.parse.float.by_s:
     mov r10,QWORD[rsp + 0]
     mov QWORD[r10],rax
     add rsp,8
-    mov BYTE[rsp + 64],1
+    mov al,4294967264
+    mov BYTE[rsp + 64],al
     add rsp,8
     add rsp,8
     add rsp,8
@@ -5469,7 +5491,8 @@ f.parse.hex.by_s:
     cmp al,0
     je l.1_IF2_54
     l.0_IF2_54:
-    mov BYTE[rsp + 24],0
+    mov al,32
+    mov BYTE[rsp + 24],al
     ret
     l.1_LOG2_54:
     l.1_IF2_54:
@@ -5523,7 +5546,8 @@ f.parse.hex.by_s:
     cmp al,0
     je l.1_IF2_55
     l.0_IF2_55:
-    mov BYTE[rsp + 24],0
+    mov al,4294967168
+    mov BYTE[rsp + 24],al
     ret
     l.1_LOG2_55:
     l.1_IF2_55:
@@ -5632,7 +5656,8 @@ f.parse.hex.by_s:
     jmp l.1_LOG3_22
     l.1_IF3_22:
     l.0_ELSE3_22:
-    mov BYTE[rsp + 73],0
+    mov al,4294967200
+    mov BYTE[rsp + 73],al
     add rsp,8
     add rsp,1
     add rsp,8
@@ -5653,7 +5678,8 @@ f.parse.hex.by_s:
     mov r10,QWORD[rsp + 0]
     mov QWORD[r10],rax
     add rsp,8
-    mov BYTE[rsp + 64],1
+    mov al,4294967280
+    mov BYTE[rsp + 64],al
     add rsp,8
     add rsp,8
     add rsp,8
@@ -6011,7 +6037,8 @@ f.parse.oct.by_s:
     cmp al,0
     je l.1_IF2_60
     l.0_IF2_60:
-    mov BYTE[rsp + 24],0
+    mov al,4294967184
+    mov BYTE[rsp + 24],al
     ret
     l.1_LOG2_60:
     l.1_IF2_60:
@@ -6065,7 +6092,8 @@ f.parse.oct.by_s:
     cmp al,0
     je l.1_IF2_61
     l.0_IF2_61:
-    mov BYTE[rsp + 24],0
+    mov al,4294967200
+    mov BYTE[rsp + 24],al
     ret
     l.1_LOG2_61:
     l.1_IF2_61:
@@ -6174,7 +6202,8 @@ f.parse.oct.by_s:
     jmp l.1_LOG3_24
     l.1_IF3_24:
     l.0_ELSE3_24:
-    mov BYTE[rsp + 73],0
+    mov al,4294967264
+    mov BYTE[rsp + 73],al
     add rsp,8
     add rsp,1
     add rsp,8
@@ -6195,7 +6224,8 @@ f.parse.oct.by_s:
     mov r10,QWORD[rsp + 0]
     mov QWORD[r10],rax
     add rsp,8
-    mov BYTE[rsp + 64],1
+    mov al,0
+    mov BYTE[rsp + 64],al
     add rsp,8
     add rsp,8
     add rsp,8
@@ -6553,7 +6583,8 @@ f.parse.bin.by_s:
     cmp al,0
     je l.1_IF2_66
     l.0_IF2_66:
-    mov BYTE[rsp + 24],0
+    mov al,80
+    mov BYTE[rsp + 24],al
     ret
     l.1_LOG2_66:
     l.1_IF2_66:
@@ -6607,7 +6638,8 @@ f.parse.bin.by_s:
     cmp al,0
     je l.1_IF2_67
     l.0_IF2_67:
-    mov BYTE[rsp + 24],0
+    mov al,4294967200
+    mov BYTE[rsp + 24],al
     ret
     l.1_LOG2_67:
     l.1_IF2_67:
@@ -6716,7 +6748,8 @@ f.parse.bin.by_s:
     jmp l.1_LOG3_26
     l.1_IF3_26:
     l.0_ELSE3_26:
-    mov BYTE[rsp + 73],0
+    mov al,4294967264
+    mov BYTE[rsp + 73],al
     add rsp,8
     add rsp,1
     add rsp,8
@@ -6737,7 +6770,8 @@ f.parse.bin.by_s:
     mov r10,QWORD[rsp + 0]
     mov QWORD[r10],rax
     add rsp,8
-    mov BYTE[rsp + 64],1
+    mov al,80
+    mov BYTE[rsp + 64],al
     add rsp,8
     add rsp,8
     add rsp,8
@@ -7546,7 +7580,8 @@ f.mem.Allocator.alloc:
     add rsp,8
     l.0_WHILE2_71:
     sub rsp,1
-    mov BYTE[rsp + 0],1
+    mov al,4294967216
+    mov BYTE[rsp + 0],al
     mov al,BYTE[rsp + 0]
     add rsp,1
     cmp al,0
@@ -7956,7 +7991,8 @@ f.mem.Allocator.free:
     add rsp,8
     l.0_WHILE2_74:
     sub rsp,1
-    mov BYTE[rsp + 0],1
+    mov al,32
+    mov BYTE[rsp + 0],al
     mov al,BYTE[rsp + 0]
     add rsp,1
     cmp al,0
@@ -8372,7 +8408,8 @@ f.mem.Allocator.realloc:
     add rsp,8
     l.0_WHILE2_76:
     sub rsp,1
-    mov BYTE[rsp + 0],1
+    mov al,48
+    mov BYTE[rsp + 0],al
     mov al,BYTE[rsp + 0]
     add rsp,1
     cmp al,0
@@ -13344,7 +13381,7 @@ f.ios.OStream.address:
     sub rsp,1
     mov rax,0
     mov al,BYTE[rsp + 30]
-    and rax,0xF0
+    and rax,240
     mov BYTE[rsp + 0],al
     sub rsp,8
     mov al,BYTE[rsp + 8]
@@ -13389,7 +13426,7 @@ f.ios.OStream.address:
     sub rsp,1
     mov rax,0
     mov al,BYTE[rsp + 38]
-    and rax,0xF
+    and rax,15
     mov BYTE[rsp + 0],al
     mov al,BYTE[rsp + 0]
     mov QWORD[rsp + 1],rax
@@ -13552,7 +13589,7 @@ f.ios.OStream.mem:
     sub rsp,1
     mov rax,0
     mov al,BYTE[rsp + 30]
-    and rax,0xF0
+    and rax,240
     mov BYTE[rsp + 0],al
     sub rsp,8
     mov al,BYTE[rsp + 8]
@@ -13597,7 +13634,7 @@ f.ios.OStream.mem:
     sub rsp,1
     mov rax,0
     mov al,BYTE[rsp + 38]
-    and rax,0xF
+    and rax,15
     mov BYTE[rsp + 0],al
     mov al,BYTE[rsp + 0]
     mov QWORD[rsp + 1],rax
@@ -13967,7 +14004,8 @@ f.ios.IStream.line:
     sub rsp,16
     mov QWORD[rsp + 16],rsp
     sub rsp,1
-    mov BYTE[rsp + 0],1
+    mov al,64
+    mov BYTE[rsp + 0],al
     l.0_WHILE2_95:
     sub rsp,1
     mov al,BYTE[rsp + 1]
@@ -14078,7 +14116,8 @@ f.ios.IStream.line:
     cmp al,0
     je l.1_IF3_38
     l.0_IF3_38:
-    mov BYTE[rsp + 8],0
+    mov al,96
+    mov BYTE[rsp + 8],al
     l.1_LOG3_38:
     l.1_IF3_38:
     add rsp,8

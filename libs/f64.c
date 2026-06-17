@@ -148,7 +148,7 @@ Token F64_Null_Handler_Cast(RexLang* ll,Token* op,Vector* args){
     String ret = String_New();
 
     if(a->tt==TOKEN_NUMBER){
-        String_AppendNumber(&ret,Number_Parse(a->str));
+        String_AppendNumber(&ret,a->v_i64);
     }else{
         Variable* v = Scope_FindVariable(&ll->ev.sc,a->str);
         if(v){
@@ -168,7 +168,7 @@ Token F64_I64_Handler_Cast(RexLang* ll,Token* op,Vector* args){
     Token* a = (Token*)Vector_Get(args,0);
 
     if(a->tt==TOKEN_FLOAT){
-        CStr nstr = Number_Get((Number)Double_Parse(a->str,1));
+        CStr nstr = Number_Get((Number)a->v_f64);
         return Token_Move(TOKEN_NUMBER,nstr);
     }else if(a->tt==TOKEN_STRING){
         Variable* v = Scope_FindVariable(&ll->ev.sc,a->str);
@@ -196,7 +196,7 @@ Token F64_Handler_Cast(RexLang* ll,Token* op,Vector* args){
 Token F64_Handler_Size(RexLang* ll,Token* op,Vector* args){
     //Token* a = (Token*)Vector_Get(args,0);
     //printf("[F64]: SIZE: %s\n",a->str);
-    return Token_Move(TOKEN_NUMBER,Number_Get(F64_SIZE));
+    return Token_New_I64(TOKEN_NUMBER,F64_SIZE);
 }
 
 void Ex_Packer(ExternFunctionMap* Extern_Functions,Vector* funcs,Scope* s){//Vector<CStr>
